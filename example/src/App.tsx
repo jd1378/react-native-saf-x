@@ -1,20 +1,23 @@
-import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-saf-x';
+import {useState, useEffect} from 'react';
+import {View, StyleSheet, Button} from 'react-native';
+import {multiply} from 'react-native-saf-x';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [result, setResult] = useState<number | undefined>();
 
-  React.useEffect(() => {
+  useEffect(() => {
     multiply(3, 7).then(setResult);
   }, []);
 
-  return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-    </View>
-  );
+  const onPress = () => {
+    console.log('foo');
+  };
+
+    return (
+      <View style={styles.container}>
+        <Button onPress={onPress} title={result?.toString() || 'button'} />
+      </View>
+    );
 }
 
 const styles = StyleSheet.create({
