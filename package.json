@@ -1,7 +1,7 @@
 {
   "name": "react-native-saf-x",
   "version": "0.1.0",
-  "description": "an improved fork of react-native-scoped-storage",
+  "description": "a module to help work with scoped storages on android easily",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/index.d.ts",
@@ -36,7 +36,9 @@
     "android",
     "scoped-storage",
     "scoped",
-    "storage"
+    "storage",
+    "SAF",
+    "storage-access-framework"
   ],
   "repository": "https://github.com/jd1378/react-native-saf-x",
   "author": "Javad Mnjd (https://github.com/jd1378)",
