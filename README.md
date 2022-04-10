@@ -32,7 +32,7 @@ async function testIt() {
   if (doc && doc.uri) {
     // user has selected a directory and uri is available
     // you can save this uri as base directory in your app and reuse it anywhere you want
-    await mkdir(selectedDirectory + '/foo/bar'); // creates foo/bar folder and subfolder at selected directory
+    await mkdir(doc.uri + '/foo/bar'); // creates foo/bar folder and subfolder at selected directory
   }
 }
 
