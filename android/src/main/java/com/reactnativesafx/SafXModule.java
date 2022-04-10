@@ -239,4 +239,19 @@ public class SafXModule extends ReactContextBaseJavaModule {
       promise.reject("EUNSPECIFIED", e.getLocalizedMessage());
     }
   }
+
+  @ReactMethod
+  public void stat(String uriString, final Promise promise) {
+    try {
+      DocumentFile doc = this.documentHelper.goToDocument(uriString, false, true);
+
+      DocumentHelper.resolveWithDocument(doc, promise, uriString);
+    } catch (FileNotFoundException e) {
+      promise.reject("ENOENT", e.getLocalizedMessage());
+    } catch (SecurityException e) {
+      promise.reject("EPERM", e.getLocalizedMessage());
+    } catch (Exception e) {
+      promise.reject("EUNSPECIFIED", e.getLocalizedMessage());
+    }
+  }
 }

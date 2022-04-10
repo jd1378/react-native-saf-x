@@ -50,6 +50,7 @@ interface SafXInterface {
   getPersistedUriPermissions(): Promise<Array<string>>;
   releasePersistableUriPermission(uriString: string): Promise<void>;
   listFiles(uriString: string): Promise<DocumentFileDetails[]>;
+  stat(uriString: string): Promise<DocumentFileDetails>;
 }
 
 export type DocumentFileDetails = {
@@ -157,6 +158,10 @@ export function listFiles(uriString: string) {
   return SafX.listFiles(uriString);
 }
 
+export function stat(uriString: string) {
+  return SafX.stat(uriString);
+}
+
 export default {
   openDocumentTree,
   openDocument,
@@ -172,4 +177,5 @@ export default {
   getPersistedUriPermissions,
   releasePersistableUriPermission,
   listFiles,
+  stat,
 };

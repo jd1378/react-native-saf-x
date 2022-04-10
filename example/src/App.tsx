@@ -12,6 +12,7 @@ import {
   listFiles,
   openDocument,
   createDocument,
+  stat,
 } from 'react-native-saf-x';
 
 import {useStore} from './store';
@@ -49,6 +50,30 @@ export default function App() {
         console.log(doc.uri);
         const fileData = await readFile(doc.uri);
         ToastAndroid.show('Content: ' + fileData, ToastAndroid.SHORT);
+      } else {
+        throw new Error('User did not select a file');
+      }
+    } catch (e: any) {
+      if (e) {
+        if (e.message) {
+          ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
+        } else {
+          ToastAndroid.show('Error: ' + JSON.stringify(e), ToastAndroid.LONG);
+        }
+      }
+    }
+  };
+
+  const onSelectAndShowStatPress = async () => {
+    try {
+      const doc = await openDocument(true);
+      if (doc?.uri) {
+        console.log(doc.uri);
+        const fileData = await stat(doc.uri);
+        ToastAndroid.show(
+          'Stat: ' + JSON.stringify(fileData),
+          ToastAndroid.SHORT,
+        );
       } else {
         throw new Error('User did not select a file');
       }
@@ -187,6 +212,7 @@ export default function App() {
       <Button onPress={onSelectDirectoryPress} title="Select Directory" />
       <Button onPress={onRunTestPress} title="Run test" />
       <Button onPress={onSelectAndReadFilePress} title="Select And Read File" />
+      <Button onPress={onSelectAndShowStatPress} title="Select And Show Stat" />
       <Button onPress={onSaveFilePress} title="Save a File" />
       <Button onPress={onCleaupPress} title="Cleanup" />
       <Button onPress={onShowPermissionPress} title="Show Permissions" />
