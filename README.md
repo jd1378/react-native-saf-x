@@ -20,7 +20,6 @@ yarn add react-native-saf-x
 
 After receiving a content uri using `openDocumentTree` function, you can use this as if like it's a normal path like we are used to. This is the intended behaviour, if you find any problems or if something does not behave as intended, please create an issue.
 
-
 Example:
 
 ```js

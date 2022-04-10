@@ -160,6 +160,7 @@ export function listFiles(uriString: string) {
 export default {
   openDocumentTree,
   openDocument,
+  createDocument,
   hasPermission,
   exists,
   readFile,
