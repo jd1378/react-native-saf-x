@@ -310,7 +310,7 @@ public class DocumentHelper {
   public static WritableMap resolveWithDocument(
       DocumentFile file, Promise promise, String SimplifiedUri) {
     WritableMap fileMap = Arguments.createMap();
-    fileMap.putString("uri", SimplifiedUri);
+    fileMap.putString("uri", UriHelper.normalize(SimplifiedUri));
     fileMap.putString("name", file.getName());
     fileMap.putString("type", file.isDirectory() ? "directory" : "file");
     if (file.isFile()) {

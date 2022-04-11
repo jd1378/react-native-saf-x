@@ -12,4 +12,16 @@ public class UriHelper {
 
     return Uri.parse(Uri.decode(uriString)).getLastPathSegment();
   }
+
+  public static String normalize(String uriString) {
+    // an abnormal uri example:
+    // content://com.android.externalstorage.documents/tree/1707-3F0B%3Ajoplin/locks/2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
+    // normalized:
+    // content://com.android.externalstorage.documents/tree/1707-3F0B%3Ajoplin%2Flocks%2F2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
+
+    // uri parts:
+
+    String[] parts = Uri.decode(uriString).split(":");
+    return parts[0] + ":" + parts[1] + Uri.encode(":" + parts[2]);
+  }
 }

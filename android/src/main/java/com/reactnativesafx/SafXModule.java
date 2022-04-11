@@ -227,7 +227,7 @@ public class SafXModule extends ReactContextBaseJavaModule {
               .map(
                   docEntry ->
                       DocumentHelper.resolveWithDocument(
-                          docEntry, null, uriString + Uri.encode("/") + docEntry.getName()))
+                          docEntry, null, uriString + "/" + docEntry.getName()))
               .toArray(WritableMap[]::new);
       WritableArray resolveData = Arguments.fromJavaArgs(resolvedDocs);
       promise.resolve(resolveData);
