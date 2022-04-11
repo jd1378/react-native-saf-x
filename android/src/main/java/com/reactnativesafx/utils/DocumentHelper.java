@@ -242,7 +242,7 @@ public class DocumentHelper {
 
   @RequiresApi(api = Build.VERSION_CODES.Q)
   @SuppressWarnings({"UnusedDeclaration", "UnusedAssignment"})
-  public Object readFromUri(android.net.Uri uri, String encoding) throws IOException {
+  public Object readFromUri(Uri uri, String encoding) throws IOException {
     byte[] bytes;
     int bytesRead;
     int length;
@@ -289,16 +289,18 @@ public class DocumentHelper {
     // list of all persisted permissions for our app
     List<UriPermission> uriList = context.getContentResolver().getPersistedUriPermissions();
     for (UriPermission uriPermission : uriList) {
-      if (permissionMatchesAndHasAccess(uriPermission, uriString)) {
+      if (permissionMatchesAndHasAccess(uriPermission, UriHelper.normalize(uriString))) {
         return true;
       }
     }
     return false;
   }
 
-  public boolean permissionMatchesAndHasAccess(UriPermission permission, String uriString) {
+  public boolean permissionMatchesAndHasAccess(
+      UriPermission permission, String normalizedUriString) {
     String permittedUri = permission.getUri().toString();
-    return (permittedUri.startsWith(uriString) || uriString.startsWith(permittedUri))
+    return (permittedUri.startsWith(normalizedUriString)
+            || normalizedUriString.startsWith(permittedUri))
         && permission.isReadPermission()
         && permission.isWritePermission();
   }
@@ -310,7 +312,7 @@ public class DocumentHelper {
   public static WritableMap resolveWithDocument(
       DocumentFile file, Promise promise, String SimplifiedUri) {
     WritableMap fileMap = Arguments.createMap();
-    fileMap.putString("uri", UriHelper.normalize(SimplifiedUri));
+    fileMap.putString("uri", UriHelper.denormalize(SimplifiedUri));
     fileMap.putString("name", file.getName());
     fileMap.putString("type", file.isDirectory() ? "directory" : "file");
     if (file.isFile()) {
@@ -370,8 +372,9 @@ public class DocumentHelper {
   }
 
   public DocumentFile goToDocument(
-      String uriString, boolean createIfDirectoryNotExist, boolean includeLastSegment)
+      String unknownUriString, boolean createIfDirectoryNotExist, boolean includeLastSegment)
       throws SecurityException, IOException {
+    String uriString = UriHelper.normalize(unknownUriString);
     String baseUri = "";
     String appendUri;
     String[] strings = new String[0];

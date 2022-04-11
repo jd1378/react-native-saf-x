@@ -16,6 +16,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.reactnativesafx.utils.DocumentHelper;
 import com.reactnativesafx.utils.GeneralHelper;
+import com.reactnativesafx.utils.UriHelper;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -208,7 +209,7 @@ public class SafXModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void releasePersistableUriPermission(String uriString, final Promise promise) {
-    Uri uriToRevoke = Uri.parse(uriString);
+    Uri uriToRevoke = Uri.parse(UriHelper.normalize(uriString));
     final int takeFlags =
         (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
     this.getReactApplicationContext()
