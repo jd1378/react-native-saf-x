@@ -1,6 +1,6 @@
 {
   "name": "react-native-saf-x",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "a module to help work with scoped storages on android easily",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
