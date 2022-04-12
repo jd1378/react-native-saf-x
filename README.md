@@ -54,36 +54,36 @@ For more examples look at example folder in the source.
 
 ### Type aliases
 
-- [CreateDocumentOptions](modules.md#createdocumentoptions)
-- [DocumentFileDetail](modules.md#documentfiledetail)
-- [Encoding](modules.md#encoding)
-- [FileOperationOptions](modules.md#fileoperationoptions)
+- [CreateDocumentOptions](#createdocumentoptions)
+- [DocumentFileDetail](#documentfiledetail)
+- [Encoding](#encoding)
+- [FileOperationOptions](#fileoperationoptions)
 
 ### Functions
 
-- [copyFile](modules.md#copyfile-1)
-- [createDocument](modules.md#createdocument-1)
-- [createFile](modules.md#createfile-1)
-- [exists](modules.md#exists-1)
-- [getPersistedUriPermissions](modules.md#getpersisteduripermissions-1)
-- [hasPermission](modules.md#haspermission-1)
-- [listFiles](modules.md#listfiles-1)
-- [mkdir](modules.md#mkdir-1)
-- [moveFile](modules.md#movefile-1)
-- [openDocument](modules.md#opendocument-1)
-- [openDocumentTree](modules.md#opendocumenttree-1)
-- [readFile](modules.md#readfile-1)
-- [releasePersistableUriPermission](modules.md#releasepersistableuripermission-1)
-- [rename](modules.md#rename-1)
-- [stat](modules.md#stat-1)
-- [unlink](modules.md#unlink-1)
-- [writeFile](modules.md#writefile-1)
+- [copyFile](#copyfile-1)
+- [createDocument](#createdocument-1)
+- [createFile](#createfile-1)
+- [exists](#exists-1)
+- [getPersistedUriPermissions](#getpersisteduripermissions-1)
+- [hasPermission](#haspermission-1)
+- [listFiles](#listfiles-1)
+- [mkdir](#mkdir-1)
+- [moveFile](#movefile-1)
+- [openDocument](#opendocument-1)
+- [openDocumentTree](#opendocumenttree-1)
+- [readFile](#readfile-1)
+- [releasePersistableUriPermission](#releasepersistableuripermission-1)
+- [rename](#rename-1)
+- [stat](#stat-1)
+- [unlink](#unlink-1)
+- [writeFile](#writefile-1)
 
 ## Type aliases
 
 ### CreateDocumentOptions
 
-Ƭ **CreateDocumentOptions**: [`FileOperationOptions`](modules.md#fileoperationoptions) & { `initialName?`: `string`  }
+Ƭ **CreateDocumentOptions**: [`FileOperationOptions`](#fileoperationoptions) & { `initialName?`: `string`  }
 
 #### Defined in
 
@@ -131,7 +131,7 @@ ___
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `append?` | `boolean` | Append data to the file. If not set file content will be overwritten. |
-| `encoding?` | [`Encoding`](modules.md#encoding) | Defaults to `'utf8'` |
+| `encoding?` | [`Encoding`](#encoding) | Defaults to `'utf8'` |
 | `mimeType?` | `string` | mime type of the file being saved. Defaults to '\*\/\*' |
 
 #### Defined in
@@ -142,7 +142,7 @@ ___
 
 ### copyFile
 
-▸ **copyFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **copyFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 Copy file from source uri to destination uri.
 promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
@@ -158,7 +158,7 @@ Does not support moving directories.
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -168,7 +168,7 @@ ___
 
 ### createDocument
 
-▸ **createDocument**(`data`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **createDocument**(`data`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 Open the Document Picker to save a file.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
@@ -178,11 +178,11 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 | Name | Type |
 | :------ | :------ |
 | `data` | `string` |
-| `options?` | [`CreateDocumentOptions`](modules.md#createdocumentoptions) |
+| `options?` | [`CreateDocumentOptions`](#createdocumentoptions) |
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -192,7 +192,7 @@ ___
 
 ### createFile
 
-▸ **createFile**(`uriString`, `options?`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **createFile**(`uriString`, `options?`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 Creates an empty file at given uri.
 Rejects if a file or directory exist at given uri.
@@ -202,11 +202,11 @@ Rejects if a file or directory exist at given uri.
 | Name | Type |
 | :------ | :------ |
 | `uriString` | `string` |
-| `options?` | `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"mimeType"``\> |
+| `options?` | `Pick`<[`FileOperationOptions`](#fileoperationoptions), ``"mimeType"``\> |
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -276,7 +276,7 @@ ___
 
 ### listFiles
 
-▸ **listFiles**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
+▸ **listFiles**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)[]\>
 
 List all files and folders in a directory uri.
 
@@ -288,7 +288,7 @@ List all files and folders in a directory uri.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
+`Promise`<[`DocumentFileDetail`](#documentfiledetail)[]\>
 
 #### Defined in
 
@@ -298,7 +298,7 @@ ___
 
 ### mkdir
 
-▸ **mkdir**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **mkdir**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 Create a directory at given uri.
 Automatically creates folders in path if needed.
@@ -313,7 +313,7 @@ Rejects if it fails.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -323,7 +323,7 @@ ___
 
 ### moveFile
 
-▸ **moveFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **moveFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 Move file from source uri to destination uri.
 promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
@@ -339,7 +339,7 @@ Does not support moving directories.
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -349,7 +349,7 @@ ___
 
 ### openDocument
 
-▸ **openDocument**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **openDocument**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 Open the Document Picker to select a file.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
@@ -362,7 +362,7 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -372,7 +372,7 @@ ___
 
 ### openDocumentTree
 
-▸ **openDocumentTree**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **openDocumentTree**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 Open the Document Picker to select a folder. Read/Write Permission will be granted to the selected folder.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a folder.
@@ -385,7 +385,7 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -404,7 +404,7 @@ Read contents of the given uri. uri must point to a file.
 | Name | Type |
 | :------ | :------ |
 | `uriString` | `string` |
-| `options?` | `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"encoding"``\> |
+| `options?` | `Pick`<[`FileOperationOptions`](#fileoperationoptions), ``"encoding"``\> |
 
 #### Returns
 
@@ -465,7 +465,7 @@ ___
 
 ### stat
 
-▸ **stat**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+▸ **stat**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 Get details for a file/directory at given uri.
 
@@ -477,7 +477,7 @@ Get details for a file/directory at given uri.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
 
 #### Defined in
 
@@ -522,7 +522,7 @@ Resolves with given uriString if successful.
 | :------ | :------ |
 | `uriString` | `string` |
 | `data` | `string` |
-| `options?` | [`FileOperationOptions`](modules.md#fileoperationoptions) |
+| `options?` | [`FileOperationOptions`](#fileoperationoptions) |
 
 #### Returns
 
