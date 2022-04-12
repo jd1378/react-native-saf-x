@@ -82,7 +82,11 @@ For more examples look at example folder in the source.
   - [Contributing](#contributing)
   - [License](#license)
 
+___
+
 ## Types
+
+___
 
 ### DocumentFileDetail
 
@@ -97,6 +101,8 @@ For more examples look at example folder in the source.
 | `mime`         | `string`                      | mime type of the file                       |
 | `size`         | `number`                      | size of the file in bytes                   |
 
+___
+
 ### FileOperationOptions
 
 ▸ Type: `object`
@@ -107,6 +113,7 @@ For more examples look at example folder in the source.
 | `append`       | `boolean`                     | Append data to the file. If not set file content will be overwritten.              |
 | `mimeType`     | `string`                      | mime type of the file being saved. Defaults to '\*\/\*'|
 
+___
 
 ### CreateDocumentOptions
 
@@ -116,12 +123,17 @@ For more examples look at example folder in the source.
 |:---------------|:------------------------------|:--------------------------------------------|
 | `initialName`     | `string`                   |  initial display name when opening file picker  |
 
+___
 
 ### Encoding
 
 ▸ Type: 'utf8' | 'base64' | 'ascii'
 
+___
+
 ## Functions
+
+___
 
 ### openDocumentTree
 
@@ -130,12 +142,16 @@ For more examples look at example folder in the source.
 Open the Document Picker to select a folder. Read/Write Permission will be granted to the selected folder.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a folder.
 
+___
+
 ### openDocument
 
 ▸ openDocument (persist: boolean): Promise<DocumentFileDetail | null\>
 
 Open the Document Picker to select a file.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
+
+___
 
 ### createDocument
 
@@ -144,11 +160,15 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 Open the Document Picker to save a file.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
 
+___
+
 ### hasPermission
 
 ▸ hasPermission (uriString: string): Promise<boolean\>
 
 Check if you have permission to access the uri
+
+___
 
 ### exists
 
@@ -156,11 +176,15 @@ Check if you have permission to access the uri
 
 Check if there's a document located at the given uri.
 
+___
+
 ### readFile
 
 ▸ readFile (uriString: string, options?: Pick<FileOperationOptions, 'encoding'\>): Promise<string\>
 
 Read contents of the given uri. uri must point to a file.
+
+___
 
 ### writeFile
 
@@ -170,6 +194,8 @@ Writes the given data to the file at given uri.
 Tries to create the file if does not already exist before writing to it.
 Resolves with given uriString if successful.
 
+___
+
 ### createFile
 
 ▸ createFile (uriString: string, options?: Pick<FileOperationOptions, 'mimeType'\>): Promise<DocumentFileDetail\>
@@ -177,12 +203,16 @@ Resolves with given uriString if successful.
 Creates an empty file at given uri.
 Rejects if a file or directory exist at given uri.
 
+___
+
 ### unlink
 
 ▸ unlink(uriString: string): Promise<boolean\>
 
 Removes the file or directory at given uri.
 Resolves with `true` if delete is successful, `false` otherwise.
+
+___
 
 ### mkdir
 
@@ -193,6 +223,8 @@ Automatically creates folders in path if needed.
 You can use it to create nested directories easily.
 Rejects if it fails.
 
+___
+
 ### rename
 
 ▸ rename(uriString: string, newName: string): Promise<boolean\>
@@ -201,11 +233,15 @@ Renames the document at given uri.
 uri can be file or folder.
 Resolves with `true` if successful and `false` otherwise.
 
+___
+
 ### getPersistedUriPermissions
 
 ▸ getPersistedUriPermissions(): Promise<string[]\>
 
 Returns a list of all the persisted uri permissions.
+
+___
 
 ### releasePersistableUriPermission
 
@@ -213,11 +249,15 @@ Returns a list of all the persisted uri permissions.
 
 Remove a uri from persisted uri permissions list. 
 
+___
+
 ### listFiles
 
 ▸ listFiles(uriString: string): Promise<DocumentFileDetail[]\>
 
 List all files and folders in a directory uri.
+
+___
 
 ### stat
 
@@ -225,12 +265,15 @@ List all files and folders in a directory uri.
 
 Get details for a file/directory at given uri.
 
+___
 
 ## Caveats
 
 Due to simplyifing the uri structure usage, file and directories should not have the same name at a given uri.
 doing so can cause unexpected results.
 for example in a folder named "foo", do not create "bar" file and "bar" directory making the uri being "foo/bar" for both cases.
+
+___
 
 ## Thanks to
 
