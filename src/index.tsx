@@ -51,6 +51,12 @@ interface SafXInterface {
   releasePersistableUriPermission(uriString: string): Promise<void>;
   listFiles(uriString: string): Promise<DocumentFileDetails[]>;
   stat(uriString: string): Promise<DocumentFileDetails>;
+  transferFile(
+    srcUri: string,
+    destUri: string,
+    replaceIfDestExist: boolean,
+    copy: boolean,
+  ): Promise<DocumentFileDetails | null>;
 }
 
 export type DocumentFileDetails = {
@@ -162,6 +168,30 @@ export function stat(uriString: string) {
   return SafX.stat(uriString);
 }
 
+type FileTransferOptions = {
+  replaceIfDestinationExists?: boolean;
+};
+
+export function copyFile(
+  srcUri: string,
+  destUri: string,
+  options?: FileTransferOptions,
+) {
+  if (!options) options = {};
+  const {replaceIfDestinationExists = false} = options;
+  return SafX.transferFile(srcUri, destUri, replaceIfDestinationExists, true);
+}
+
+export function moveFile(
+  srcUri: string,
+  destUri: string,
+  options?: FileTransferOptions,
+) {
+  if (!options) options = {};
+  const {replaceIfDestinationExists = false} = options;
+  return SafX.transferFile(srcUri, destUri, replaceIfDestinationExists, false);
+}
+
 export default {
   openDocumentTree,
   openDocument,
@@ -178,4 +208,6 @@ export default {
   releasePersistableUriPermission,
   listFiles,
   stat,
+  copyFile,
+  moveFile,
 };

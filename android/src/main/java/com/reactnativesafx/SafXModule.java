@@ -137,6 +137,12 @@ public class SafXModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void transferFile(
+      String srcUri, String destUri, boolean replaceIfDestExists, boolean copy, Promise promise) {
+    this.documentHelper.transferFile(srcUri, destUri, replaceIfDestExists, copy, promise);
+  }
+
+  @ReactMethod
   public void rename(String uriString, String newName, final Promise promise) {
     try {
 
@@ -162,7 +168,8 @@ public class SafXModule extends ReactContextBaseJavaModule {
   public void unlink(String uriString, final Promise promise) {
     try {
       DocumentFile doc = this.documentHelper.goToDocument(uriString, false, true);
-      promise.resolve(doc.delete());
+      boolean result = doc.delete();
+      promise.resolve(result);
     } catch (FileNotFoundException e) {
       promise.resolve(true);
     } catch (SecurityException e) {

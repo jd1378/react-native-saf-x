@@ -7,7 +7,9 @@ import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
+import android.provider.DocumentsContract;
 import android.util.Base64;
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.documentfile.provider.DocumentFileHelper;
@@ -310,7 +312,7 @@ public class DocumentHelper {
   }
 
   public static WritableMap resolveWithDocument(
-      DocumentFile file, Promise promise, String SimplifiedUri) {
+      @NonNull DocumentFile file, Promise promise, String SimplifiedUri) {
     WritableMap fileMap = Arguments.createMap();
     fileMap.putString("uri", UriHelper.denormalize(SimplifiedUri));
     fileMap.putString("name", file.getName());
@@ -445,5 +447,62 @@ public class DocumentHelper {
     }
     assert dir != null;
     return dir;
+  }
+
+  public void transferFile(
+      String srcUri, String destUri, boolean replaceIfDestExists, boolean copy, Promise promise) {
+    try {
+      boolean replaceNeeded = false;
+      if (this.exists(destUri)) {
+        if (replaceIfDestExists) {
+          replaceNeeded = true;
+        } else {
+          throw new IOException("a file with the same name already exists in destination");
+        }
+      }
+
+      DocumentFile srcDoc = this.goToDocument(srcUri, false, true);
+      DocumentFile destParentDoc = this.goToDocument(srcUri, true, false);
+
+      DocumentFile srcParentDoc = srcDoc.getParentFile();
+
+      if (destParentDoc == null || srcParentDoc == null) {
+        throw new IllegalAccessException(
+            "Cannot determine the parent documents of the source or destination document");
+      }
+
+      // we need to remove the destination file first before moving so we don't accidentally move
+      // with a numbered name.
+      // as a side effect, even if the move fails, the destination doc is always removed
+      if (replaceNeeded) {
+        this.goToDocument(destUri, false, true).delete();
+      }
+
+      Uri movedUri;
+
+      if (copy) {
+        movedUri =
+            DocumentsContract.copyDocument(
+                this.context.getContentResolver(), srcDoc.getUri(), destParentDoc.getUri());
+      } else {
+        movedUri =
+            DocumentsContract.moveDocument(
+                this.context.getContentResolver(),
+                srcDoc.getUri(),
+                srcParentDoc.getUri(),
+                destParentDoc.getUri());
+      }
+
+      if (movedUri != null) {
+        DocumentFile newDoc = this.goToDocument(destUri, false, true);
+        String newDocName = UriHelper.getLastSegment(destUri);
+        newDoc.renameTo(newDocName);
+        DocumentHelper.resolveWithDocument(newDoc, promise, destUri);
+      } else {
+        throw new Exception(copy ? "Copy" : "Move" + " failed silently from '" + srcUri + "'");
+      }
+    } catch (Exception e) {
+      promise.reject("EUNSPECIFIED", e.getLocalizedMessage());
+    }
   }
 }

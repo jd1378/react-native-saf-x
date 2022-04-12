@@ -13,6 +13,8 @@ import {
   openDocument,
   createDocument,
   stat,
+  copyFile,
+  moveFile,
 } from 'react-native-saf-x';
 
 import {useStore} from './store';
@@ -145,6 +147,30 @@ export default function App() {
         await rename(selectedDirectory + '/otherfile.txt', 'anotherfile.txt');
         ToastAndroid.show(
           'otherfile.txt renamed to anotherfile.txt',
+          ToastAndroid.SHORT,
+        );
+
+        await copyFile(
+          selectedDirectory + '/anotherfile.txt',
+          selectedDirectory + '/copiedfile.txt',
+        );
+        ToastAndroid.show(
+          'anotherfile.txt copied to copiedfile.txt',
+          ToastAndroid.SHORT,
+        );
+
+        await moveFile(
+          selectedDirectory + '/anotherfile.txt',
+          selectedDirectory + '/foo/bar/movedfile.txt',
+        );
+        ToastAndroid.show(
+          'anotherfile.txt moved to foo/bar/movedfile.txt',
+          ToastAndroid.SHORT,
+        );
+
+        await moveFile(selectedDirectory + '/foo', selectedDirectory + '/goo');
+        ToastAndroid.show(
+          'foo was moved to goo (renamed using move)',
           ToastAndroid.SHORT,
         );
       } else {
