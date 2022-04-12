@@ -7,7 +7,6 @@ import android.content.UriPermission;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION_CODES;
-import android.provider.DocumentsContract;
 import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -426,7 +425,7 @@ public class DocumentHelper {
           } else {
             // child doc is a file
             throw new IOException(
-                "There's a file with the same name as the one we are trying to traverse at: '"
+                "There's a document with the same name as the one we are trying to traverse at: '"
                     + childDoc.getUri()
                     + "'");
           }
@@ -452,55 +451,34 @@ public class DocumentHelper {
   public void transferFile(
       String srcUri, String destUri, boolean replaceIfDestExists, boolean copy, Promise promise) {
     try {
-      boolean replaceNeeded = false;
-      if (this.exists(destUri)) {
-        if (replaceIfDestExists) {
-          replaceNeeded = true;
-        } else {
-          throw new IOException("a file with the same name already exists in destination");
+      DocumentFile srcDoc = this.goToDocument(srcUri, false, true);
+
+      DocumentFile destDoc;
+      try {
+        destDoc = this.goToDocument(destUri, false, true);
+        if (!replaceIfDestExists) {
+          throw new IOException("a document with the same name already exists in destination");
+        }
+      } catch (FileNotFoundException e) {
+        destDoc = this.createFile(destUri, srcDoc.getType());
+      }
+
+      try (InputStream inStream =
+              this.context.getContentResolver().openInputStream(srcDoc.getUri());
+          OutputStream outStream =
+              this.context.getContentResolver().openOutputStream(destDoc.getUri(), "wt"); ) {
+        byte[] buffer = new byte[1024 * 4];
+        int length;
+        while ((length = inStream.read(buffer)) > 0) {
+          outStream.write(buffer, 0, length);
         }
       }
 
-      DocumentFile srcDoc = this.goToDocument(srcUri, false, true);
-      DocumentFile destParentDoc = this.goToDocument(destUri, true, false);
-
-      DocumentFile srcParentDoc = srcDoc.getParentFile();
-
-      if (destParentDoc == null || srcParentDoc == null) {
-        throw new IllegalAccessException(
-            "Cannot determine the parent documents of the source or destination document");
+      if (!copy) {
+        srcDoc.delete();
       }
 
-      // we need to remove the destination file first before moving so we don't accidentally move
-      // with a numbered name.
-      // as a side effect, even if the move fails, the destination doc is always removed
-      if (replaceNeeded) {
-        this.goToDocument(destUri, false, true).delete();
-      }
-
-      Uri movedUri;
-
-      if (copy) {
-        movedUri =
-            DocumentsContract.copyDocument(
-                this.context.getContentResolver(), srcDoc.getUri(), destParentDoc.getUri());
-      } else {
-        movedUri =
-            DocumentsContract.moveDocument(
-                this.context.getContentResolver(),
-                srcDoc.getUri(),
-                srcParentDoc.getUri(),
-                destParentDoc.getUri());
-      }
-
-      if (movedUri != null) {
-        DocumentFile newDoc = this.goToDocument(destUri, false, true);
-        String newDocName = UriHelper.getLastSegment(destUri);
-        newDoc.renameTo(newDocName);
-        DocumentHelper.resolveWithDocument(newDoc, promise, destUri);
-      } else {
-        throw new Exception(copy ? "Copy" : "Move" + " failed silently from '" + srcUri + "'");
-      }
+      promise.resolve(resolveWithDocument(destDoc, promise, destUri));
     } catch (Exception e) {
       promise.reject("EUNSPECIFIED", e.getLocalizedMessage());
     }

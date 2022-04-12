@@ -195,9 +195,9 @@ export default function App() {
         for (const f of files) {
           await unlink(f.uri);
         }
-        ToastAndroid.show('Cleanup Successful', ToastAndroid.LONG);
+        ToastAndroid.show('Cleanup Successful', ToastAndroid.SHORT);
       } else {
-        ToastAndroid.show('No directory is selected', ToastAndroid.LONG);
+        ToastAndroid.show('No directory is selected', ToastAndroid.SHORT);
       }
     } catch (e: any) {
       if (e) {
