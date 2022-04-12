@@ -22,14 +22,14 @@ const SafX = (
 export type Encoding = 'utf8' | 'base64' | 'ascii';
 
 interface SafXInterface {
-  openDocumentTree(persist: boolean): Promise<DocumentFileDetails | null>;
-  openDocument(persist: boolean): Promise<DocumentFileDetails | null>;
+  openDocumentTree(persist: boolean): Promise<DocumentFileDetail | null>;
+  openDocument(persist: boolean): Promise<DocumentFileDetail | null>;
   createDocument(
     data: String,
     encoding?: String,
     initialName?: string,
     mimeType?: String,
-  ): Promise<DocumentFileDetails | null>;
+  ): Promise<DocumentFileDetail | null>;
   hasPermission(uriString: string): Promise<boolean>;
   exists(uriString: string): Promise<boolean>;
   readFile(uriString: string, encoding?: Encoding): Promise<string>;
@@ -40,26 +40,23 @@ interface SafXInterface {
     mimeType?: string,
     append?: boolean,
   ): Promise<string>;
-  createFile(
-    uriString: string,
-    mimeType?: String,
-  ): Promise<DocumentFileDetails>;
+  createFile(uriString: string, mimeType?: String): Promise<DocumentFileDetail>;
   unlink(uriString: string): Promise<boolean>;
-  mkdir(uriString: string): Promise<DocumentFileDetails>;
+  mkdir(uriString: string): Promise<DocumentFileDetail>;
   rename(uriString: string, newName: string): Promise<boolean>;
   getPersistedUriPermissions(): Promise<Array<string>>;
   releasePersistableUriPermission(uriString: string): Promise<void>;
-  listFiles(uriString: string): Promise<DocumentFileDetails[]>;
-  stat(uriString: string): Promise<DocumentFileDetails>;
+  listFiles(uriString: string): Promise<DocumentFileDetail[]>;
+  stat(uriString: string): Promise<DocumentFileDetail>;
   transferFile(
     srcUri: string,
     destUri: string,
     replaceIfDestExist: boolean,
     copy: boolean,
-  ): Promise<DocumentFileDetails | null>;
+  ): Promise<DocumentFileDetail | null>;
 }
 
-export type DocumentFileDetails = {
+export type DocumentFileDetail = {
   uri: string;
   name: string;
   type: 'directory' | 'file';
