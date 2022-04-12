@@ -21,6 +21,7 @@ const SafX = (
 
 export type Encoding = 'utf8' | 'base64' | 'ascii';
 
+/** Native interface of the module */
 interface SafXInterface {
   openDocumentTree(persist: boolean): Promise<DocumentFileDetail | null>;
   openDocument(persist: boolean): Promise<DocumentFileDetail | null>;
@@ -81,28 +82,43 @@ export type CreateDocumentOptions = FileOperationOptions & {
   initialName?: string;
 };
 
+/**
+ * Open the Document Picker to select a folder. Read/Write Permission will be granted to the selected folder.
+ * Returns an object of type `DocumentFileDetail` or `null` if user did not select a folder.
+ */
 export function openDocumentTree(persist: boolean) {
   return SafX.openDocumentTree(persist);
 }
 
+/**
+ * Open the Document Picker to select a file.
+ * Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
+ */
 export function openDocument(persist: boolean) {
   return SafX.openDocument(persist);
 }
 
+/**
+ * Open the Document Picker to save a file.
+ * Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
+ */
 export function createDocument(data: string, options?: CreateDocumentOptions) {
   if (!options) options = {};
   const {encoding, initialName, mimeType} = options;
   return SafX.createDocument(data, encoding, initialName, mimeType);
 }
 
+/** Check if you have permission to access the uri. */
 export function hasPermission(uriString: string) {
   return SafX.hasPermission(uriString);
 }
 
+/** Check if there's a document located at the given uri. */
 export function exists(uriString: string) {
   return SafX.exists(uriString);
 }
 
+/** Read contents of the given uri. uri must point to a file. */
 export function readFile(
   uriString: string,
   options?: Pick<FileOperationOptions, 'encoding'>,
@@ -113,7 +129,9 @@ export function readFile(
 }
 
 /**
+ * Writes the given data to the file at given uri.
  * Tries to create the file if does not already exist before writing to it.
+ * Resolves with given uriString if successful.
  */
 export function writeFile(
   uriString: string,
@@ -125,6 +143,10 @@ export function writeFile(
   return SafX.writeFile(uriString, data, encoding, mimeType, !!append);
 }
 
+/**
+ * Creates an empty file at given uri.
+ * Rejects if a file or directory exist at given uri.
+ */
 export function createFile(
   uriString: string,
   options?: Pick<FileOperationOptions, 'mimeType'>,
@@ -134,33 +156,48 @@ export function createFile(
   return SafX.createFile(uriString, mimeType);
 }
 
-/** returns `true` if the pointed file or directory **is** deleted */
+/**
+ * Removes the file or directory at given uri.
+ * Resolves with `true` if delete is successful, `false` otherwise. */
 export function unlink(uriString: string) {
   return SafX.unlink(uriString);
 }
 
-/** Automatically creates folders in path if needed. so you can use it to create nested directories easily. */
+/**
+ * Create a directory at given uri.
+ * Automatically creates folders in path if needed.
+ * You can use it to create nested directories easily.
+ * Rejects if it fails.
+ */
 export function mkdir(uriString: string) {
   return SafX.mkdir(uriString);
 }
 
-/** renames the document in place. uri can be file or folder. */
+/**
+ * Renames the document at given uri.
+ * uri can be file or folder.
+ * Resolves with `true` if successful and `false` otherwise.
+ */
 export function rename(uriString: string, newName: string) {
   return SafX.rename(uriString, newName);
 }
 
+/** Returns a list of all the persisted uri permissions. */
 export function getPersistedUriPermissions() {
   return SafX.getPersistedUriPermissions();
 }
 
+/** Remove a uri from persisted uri permissions list. */
 export function releasePersistableUriPermission(uriString: string) {
   return SafX.releasePersistableUriPermission(uriString);
 }
 
+/** List all files and folders in a directory uri. */
 export function listFiles(uriString: string) {
   return SafX.listFiles(uriString);
 }
 
+/** Get details for a file/directory at given uri. */
 export function stat(uriString: string) {
   return SafX.stat(uriString);
 }
@@ -169,7 +206,11 @@ type FileTransferOptions = {
   replaceIfDestinationExists?: boolean;
 };
 
-/** Does not support moving directories */
+/**
+ * Copy file from source uri to destination uri.
+ * promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
+ * Does not support moving directories.
+ */
 export function copyFile(
   srcUri: string,
   destUri: string,
@@ -180,7 +221,11 @@ export function copyFile(
   return SafX.transferFile(srcUri, destUri, replaceIfDestinationExists, true);
 }
 
-/** Does not support moving directories */
+/**
+ * Move file from source uri to destination uri.
+ * promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
+ * Does not support moving directories.
+ */
 export function moveFile(
   srcUri: string,
   destUri: string,
