@@ -167,12 +167,6 @@ export default function App() {
           'anotherfile.txt moved to foo/bar/movedfile.txt',
           ToastAndroid.SHORT,
         );
-
-        await moveFile(selectedDirectory + '/foo', selectedDirectory + '/goo');
-        ToastAndroid.show(
-          'foo was moved to goo (renamed using move)',
-          ToastAndroid.SHORT,
-        );
       } else {
         ToastAndroid.show('failed to create dir', ToastAndroid.SHORT);
       }

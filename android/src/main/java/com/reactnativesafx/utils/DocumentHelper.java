@@ -453,6 +453,10 @@ public class DocumentHelper {
     try {
       DocumentFile srcDoc = this.goToDocument(srcUri, false, true);
 
+      if (srcDoc.isDirectory()) {
+        throw new IllegalArgumentException("Cannot move directories");
+      }
+
       DocumentFile destDoc;
       try {
         destDoc = this.goToDocument(destUri, false, true);
