@@ -349,6 +349,9 @@ public class DocumentHelper {
 
   public DocumentFile createFile(String uriString, String mimeType)
       throws IOException, SecurityException {
+    if (this.exists(uriString)) {
+      throw new IOException("a file or directory already exist at: " + uriString);
+    }
     DocumentFile parentDirOfFile = this.mkdir(uriString, false);
     // it should be safe because user cannot select sd root or primary root
     // and any other path would have at least one '/' to provide a file name in a folder
