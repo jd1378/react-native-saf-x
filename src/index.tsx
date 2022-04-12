@@ -172,6 +172,7 @@ type FileTransferOptions = {
   replaceIfDestinationExists?: boolean;
 };
 
+/** Does not support moving directories */
 export function copyFile(
   srcUri: string,
   destUri: string,
@@ -182,6 +183,7 @@ export function copyFile(
   return SafX.transferFile(srcUri, destUri, replaceIfDestinationExists, true);
 }
 
+/** Does not support moving directories */
 export function moveFile(
   srcUri: string,
   destUri: string,
