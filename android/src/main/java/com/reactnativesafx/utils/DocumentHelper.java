@@ -462,7 +462,7 @@ public class DocumentHelper {
       }
 
       DocumentFile srcDoc = this.goToDocument(srcUri, false, true);
-      DocumentFile destParentDoc = this.goToDocument(srcUri, true, false);
+      DocumentFile destParentDoc = this.goToDocument(destUri, true, false);
 
       DocumentFile srcParentDoc = srcDoc.getParentFile();
 
