@@ -52,6 +52,15 @@ For more examples look at example folder in the source.
 
 ## Table of contents
 
+- [Installation](#installation)
+- [Usage](#usage)
+- [Type aliases](#type-aliases)
+- [Functions](#functions)
+- [Caveats](#caveats)
+- [Thanks to](#thanks-to)
+- [Contributing](#contributing)
+- [License](#license)
+
 ### Type aliases
 
 - [CreateDocumentOptions](#createdocumentoptions)
