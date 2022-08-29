@@ -96,7 +96,7 @@ For more examples look at example folder in the source.
 
 #### Defined in
 
-[index.tsx:80](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L80)
+[index.tsx:87](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L87)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 #### Defined in
 
-[index.tsx:60](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L60)
+[index.tsx:67](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L67)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 #### Defined in
 
-[index.tsx:22](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L22)
+[index.tsx:29](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L29)
 
 ___
 
@@ -145,7 +145,7 @@ ___
 
 #### Defined in
 
-[index.tsx:69](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L69)
+[index.tsx:76](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L76)
 
 ## Functions
 
@@ -171,7 +171,7 @@ Does not support moving directories.
 
 #### Defined in
 
-[index.tsx:214](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L214)
+[index.tsx:221](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L221)
 
 ___
 
@@ -195,7 +195,7 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Defined in
 
-[index.tsx:105](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L105)
+[index.tsx:112](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L112)
 
 ___
 
@@ -219,7 +219,7 @@ Rejects if a file or directory exist at given uri.
 
 #### Defined in
 
-[index.tsx:150](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L150)
+[index.tsx:157](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L157)
 
 ___
 
@@ -241,7 +241,7 @@ Check if there's a document located at the given uri.
 
 #### Defined in
 
-[index.tsx:117](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L117)
+[index.tsx:124](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L124)
 
 ___
 
@@ -257,7 +257,7 @@ Returns a list of all the persisted uri permissions.
 
 #### Defined in
 
-[index.tsx:186](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L186)
+[index.tsx:193](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L193)
 
 ___
 
@@ -279,7 +279,7 @@ Check if you have permission to access the uri.
 
 #### Defined in
 
-[index.tsx:112](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L112)
+[index.tsx:119](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L119)
 
 ___
 
@@ -301,7 +301,7 @@ List all files and folders in a directory uri.
 
 #### Defined in
 
-[index.tsx:196](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L196)
+[index.tsx:203](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L203)
 
 ___
 
@@ -326,7 +326,7 @@ Rejects if it fails.
 
 #### Defined in
 
-[index.tsx:172](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L172)
+[index.tsx:179](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L179)
 
 ___
 
@@ -352,7 +352,7 @@ Does not support moving directories.
 
 #### Defined in
 
-[index.tsx:229](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L229)
+[index.tsx:236](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L236)
 
 ___
 
@@ -375,7 +375,7 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Defined in
 
-[index.tsx:97](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L97)
+[index.tsx:104](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L104)
 
 ___
 
@@ -398,7 +398,7 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Defined in
 
-[index.tsx:89](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L89)
+[index.tsx:96](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L96)
 
 ___
 
@@ -421,7 +421,7 @@ Read contents of the given uri. uri must point to a file.
 
 #### Defined in
 
-[index.tsx:122](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L122)
+[index.tsx:129](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L129)
 
 ___
 
@@ -443,7 +443,7 @@ Remove a uri from persisted uri permissions list.
 
 #### Defined in
 
-[index.tsx:191](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L191)
+[index.tsx:198](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L198)
 
 ___
 
@@ -468,7 +468,7 @@ Resolves with `true` if successful and `false` otherwise.
 
 #### Defined in
 
-[index.tsx:181](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L181)
+[index.tsx:188](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L188)
 
 ___
 
@@ -490,7 +490,7 @@ Get details for a file/directory at given uri.
 
 #### Defined in
 
-[index.tsx:201](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L201)
+[index.tsx:208](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L208)
 
 ___
 
@@ -499,7 +499,7 @@ ___
 ▸ **unlink**(`uriString`): `Promise`<`boolean`\>
 
 Removes the file or directory at given uri.
-Resolves with `true` if delete is successful, `false` otherwise.
+Resolves with `true` if delete is successful, throws otherwise.
 
 #### Parameters
 
@@ -513,7 +513,7 @@ Resolves with `true` if delete is successful, `false` otherwise.
 
 #### Defined in
 
-[index.tsx:162](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L162)
+[index.tsx:169](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L169)
 
 ___
 
@@ -539,7 +539,7 @@ Resolves with given uriString if successful.
 
 #### Defined in
 
-[index.tsx:136](https://github.com/jd1378/react-native-saf-x/blob/e0f8106/src/index.tsx#L136)
+[index.tsx:143](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L143)
 
 ## Caveats
 
