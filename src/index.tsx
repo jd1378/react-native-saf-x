@@ -165,7 +165,7 @@ export function createFile(
 
 /**
  * Removes the file or directory at given uri.
- * Resolves with `true` if delete is successful, `false` otherwise. */
+ * Resolves with `true` if delete is successful, throws otherwise. */
 export function unlink(uriString: string) {
   return SafX.unlink(uriString);
 }
