@@ -39,7 +39,8 @@
     "scoped",
     "storage",
     "SAF",
-    "storage-access-framework"
+    "storage-access-framework",
+    "fs"
   ],
   "repository": "https://github.com/jd1378/react-native-saf-x",
   "author": "Javad Mnjd (https://github.com/jd1378)",
