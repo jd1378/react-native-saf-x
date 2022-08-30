@@ -21,11 +21,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 @RequiresApi(api = VERSION_CODES.Q)
 @ReactModule(name = SafXModule.NAME)
 public class SafXModule extends ReactContextBaseJavaModule {
   public static final String NAME = "SafX";
+  public static Pattern trailingSlash = Pattern.compile("[/\\\\]$");
   private final DocumentHelper documentHelper;
 
   public SafXModule(ReactApplicationContext reactContext) {
@@ -238,7 +240,11 @@ public class SafXModule extends ReactContextBaseJavaModule {
               .map(
                   docEntry ->
                       DocumentHelper.resolveWithDocument(
-                          docEntry, null, uriString + "/" + docEntry.getName()))
+                          docEntry,
+                          null,
+                          trailingSlash.matcher(uriString).replaceFirst("")
+                              + "/"
+                              + docEntry.getName()))
               .toArray(WritableMap[]::new);
       WritableArray resolveData = Arguments.fromJavaArgs(resolvedDocs);
       promise.resolve(resolveData);

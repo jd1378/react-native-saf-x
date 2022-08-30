@@ -226,18 +226,77 @@ export default function App() {
     }
   };
 
+  const onTestInternalPath = async () => {
+    await createFile(
+      '/data/user/0/com.example.reactnativesafx/files/test/fud/bar.baz',
+    )
+      .then(files => {
+        console.log('file created:', JSON.stringify(files));
+        ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG);
+        return listFiles('/data/user/0/com.example.reactnativesafx/files/');
+      })
+      .catch(error => {
+        console.log('Failed to create file:', JSON.stringify(error));
+      })
+      .then(listedFiles => {
+        console.log('files:', JSON.stringify(listedFiles));
+      })
+      .finally(() =>
+        unlink('/data/user/0/com.example.reactnativesafx/files/test')
+          .catch(e => {
+            console.error('cleanup failed: ', e);
+          })
+          .then(() =>
+            listFiles('/data/user/0/com.example.reactnativesafx/files/').then(
+              files =>
+                console.log('POST CLEANUP RESULTS:', JSON.stringify(files)),
+            ),
+          ),
+      );
+  };
+
   return (
     <View style={styles.container}>
       <TextInput value={selectedDirectory || ''} style={styles.input} />
-      <Button onPress={onSelectDirectoryPress} title="Select Directory" />
-      <Button onPress={onRunTestPress} title="Run test" />
-      <Button onPress={onSelectAndReadFilePress} title="Select And Read File" />
-      <Button onPress={onSelectAndShowStatPress} title="Select And Show Stat" />
-      <Button onPress={onSaveFilePress} title="Save a File" />
-      <Button onPress={onCleaupPress} title="Cleanup" />
-      <Button onPress={onShowPermissionPress} title="Show Permissions" />
-      <Button onPress={onReleasePermissionsPress} title="Release Permissions" />
-      <Button onPress={onListFilesPress} title="List Files" />
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onSelectDirectoryPress} title="Select Directory" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onRunTestPress} title="Run test" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button
+          onPress={onSelectAndReadFilePress}
+          title="Select And Read File"
+        />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button
+          onPress={onSelectAndShowStatPress}
+          title="Select And Show Stat"
+        />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onSaveFilePress} title="Save a File" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onCleaupPress} title="Cleanup" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onShowPermissionPress} title="Show Permissions" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button
+          onPress={onReleasePermissionsPress}
+          title="Release Permissions"
+        />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onListFilesPress} title="List Files" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onTestInternalPath} title="Test Internal Path" />
+      </View>
     </View>
   );
 }
@@ -245,10 +304,15 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     padding: 10,
+  },
+  buttonWrapper: {
+    marginRight: 10,
+    marginBottom: 10,
   },
   box: {
     width: 60,
