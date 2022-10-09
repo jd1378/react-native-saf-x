@@ -188,13 +188,13 @@ public class DocumentHelper {
       final Promise promise) {
     try {
 
-          Intent intent = new Intent();
-          intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
-          intent.addCategory(Intent.CATEGORY_OPENABLE);
-          intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
-                  | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
-                  | Intent.FLAG_GRANT_READ_URI_PERMISSION
-                  | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+      Intent intent = new Intent();
+      intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
+      intent.addCategory(Intent.CATEGORY_OPENABLE);
+      intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+              | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+              | Intent.FLAG_GRANT_READ_URI_PERMISSION
+              | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       if (initialName != null) {
         intent.putExtra(Intent.EXTRA_TITLE, initialName);
       }
