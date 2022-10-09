@@ -45,6 +45,12 @@ public class DocumentHelper {
 
       Intent intent = new Intent();
       intent.setAction(Intent.ACTION_OPEN_DOCUMENT_TREE);
+      if (persist) {
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                | Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+      }
 
       if (activityEventListener != null) {
         context.removeActivityEventListener(activityEventListener);
@@ -110,6 +116,12 @@ public class DocumentHelper {
       intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
       intent.addCategory(Intent.CATEGORY_OPENABLE);
       intent.setType("*/*");
+      if (persist) {
+        intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                | Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+      }
 
       if (activityEventListener != null) {
         context.removeActivityEventListener(activityEventListener);
@@ -176,9 +188,13 @@ public class DocumentHelper {
       final Promise promise) {
     try {
 
-      Intent intent = new Intent();
-      intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
-      intent.addCategory(Intent.CATEGORY_OPENABLE);
+          Intent intent = new Intent();
+          intent.setAction(Intent.ACTION_CREATE_DOCUMENT);
+          intent.addCategory(Intent.CATEGORY_OPENABLE);
+          intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+                  | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
+                  | Intent.FLAG_GRANT_READ_URI_PERMISSION
+                  | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       if (initialName != null) {
         intent.putExtra(Intent.EXTRA_TITLE, initialName);
       }
