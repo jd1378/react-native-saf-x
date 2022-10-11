@@ -31,7 +31,10 @@ export type Encoding = 'utf8' | 'base64' | 'ascii';
 /** Native interface of the module */
 interface SafXInterface {
   openDocumentTree(persist: boolean): Promise<DocumentFileDetail | null>;
-  openDocument(persist: boolean): Promise<DocumentFileDetail | null>;
+  openDocument(
+    persist: boolean,
+    multiple: boolean,
+  ): Promise<DocumentFileDetail[] | null>;
   createDocument(
     data: String,
     encoding?: String,
@@ -97,12 +100,21 @@ export function openDocumentTree(persist: boolean) {
   return SafX.openDocumentTree(persist);
 }
 
+export type OpenDocumentOptions = {
+  /** should the permission of returned document(s) be persisted ? */
+  persist?: boolean;
+  /** should the file picker allow multiple documents ? */
+  multiple?: boolean;
+};
+
 /**
  * Open the Document Picker to select a file.
- * Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
+ * DocumentFileDetail is always an array.
+ * @returns `DocumentFileDetail[]` or `null` if user did not select a file.
  */
-export function openDocument(persist: boolean) {
-  return SafX.openDocument(persist);
+export function openDocument(options: OpenDocumentOptions) {
+  const {persist = false, multiple = false} = options;
+  return SafX.openDocument(persist, multiple);
 }
 
 /**
@@ -165,7 +177,8 @@ export function createFile(
 
 /**
  * Removes the file or directory at given uri.
- * Resolves with `true` if delete is successful, throws otherwise. */
+ * Resolves with `true` if delete is successful, throws otherwise.
+ */
 export function unlink(uriString: string) {
   return SafX.unlink(uriString);
 }

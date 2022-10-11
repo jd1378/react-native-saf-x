@@ -47,10 +47,10 @@ export default function App() {
 
   const onSelectAndReadFilePress = async () => {
     try {
-      const doc = await openDocument(true);
-      if (doc?.uri) {
-        console.log(doc.uri);
-        const fileData = await readFile(doc.uri);
+      const doc = await openDocument({persist: true});
+      if (doc && doc.length) {
+        console.log(doc[0].uri);
+        const fileData = await readFile(doc[0].uri);
         ToastAndroid.show('Content: ' + fileData, ToastAndroid.SHORT);
       } else {
         throw new Error('User did not select a file');
@@ -68,10 +68,10 @@ export default function App() {
 
   const onSelectAndShowStatPress = async () => {
     try {
-      const doc = await openDocument(true);
-      if (doc?.uri) {
-        console.log(doc.uri);
-        const fileData = await stat(doc.uri);
+      const doc = await openDocument({persist: true});
+      if (doc && doc.length) {
+        console.log(doc[0].uri);
+        const fileData = await stat(doc[0].uri);
         ToastAndroid.show(
           'Stat: ' + JSON.stringify(fileData),
           ToastAndroid.SHORT,
@@ -220,9 +220,18 @@ export default function App() {
 
   const onListFilesPress = async () => {
     if (selectedDirectory) {
-      await listFiles(selectedDirectory).then(files =>
-        ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG),
-      );
+      await listFiles(selectedDirectory)
+        .then(files =>
+          ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG),
+        )
+        .catch(e => {
+          console.log('Failed to list files:', JSON.stringify(e));
+          if (e.message) {
+            ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
+          } else {
+            ToastAndroid.show('Error: ' + JSON.stringify(e), ToastAndroid.LONG);
+          }
+        });
     }
   };
 
@@ -253,6 +262,49 @@ export default function App() {
             ),
           ),
       );
+  };
+
+  const onSelectAndShowMultipleNamesPress = async () => {
+    try {
+      const docs = await openDocument({persist: false, multiple: true});
+      if (docs && docs.length) {
+        const names = JSON.stringify(docs.map(doc => doc.name));
+        console.log('multiple files selected: ', names);
+
+        ToastAndroid.show('Multiple files: ' + names, ToastAndroid.SHORT);
+      } else {
+        throw new Error('User did not select any files');
+      }
+    } catch (e: any) {
+      if (e) {
+        if (e.message) {
+          ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
+        } else {
+          ToastAndroid.show('Error: ' + JSON.stringify(e), ToastAndroid.LONG);
+        }
+      }
+    }
+  };
+
+  const onCustomAccessTestPress = async () => {
+    try {
+      await createFile(
+        'content://com.android.externalstorage.documents/tree/11F3-120D:nonexistent',
+      );
+      ToastAndroid.show(
+        'Successfully created a file somewhere .',
+        ToastAndroid.SHORT,
+      );
+    } catch (e: any) {
+      console.log(e);
+      if (e) {
+        if (e.message) {
+          ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
+        } else {
+          ToastAndroid.show('Error: ' + JSON.stringify(e), ToastAndroid.LONG);
+        }
+      }
+    }
   };
 
   return (
@@ -296,6 +348,15 @@ export default function App() {
       </View>
       <View style={styles.buttonWrapper}>
         <Button onPress={onTestInternalPath} title="Test Internal Path" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button
+          onPress={onSelectAndShowMultipleNamesPress}
+          title="Multiple Select"
+        />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onCustomAccessTestPress} title="Custom Access" />
       </View>
     </View>
   );
