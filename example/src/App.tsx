@@ -181,6 +181,57 @@ export default function App() {
     }
   };
 
+  const onRunBenchmarkPress = async () => {
+    try {
+      if (selectedDirectory) {
+        // pre cleanup
+        const dir = await mkdir(selectedDirectory + '/benchmark');
+        await unlink(dir.uri);
+
+        console.time('benchmark');
+        for (let i = 0; i < 100; i++) {
+          const benchDir = await mkdir(selectedDirectory + '/benchmark');
+
+          await createFile(benchDir.uri + '/subfolder/somefile.txt');
+
+          await writeFile(benchDir.uri + '/otherfile.txt', 'yes');
+
+          await writeFile(benchDir.uri + '/otherfile.txt', ', maybe no', {
+            append: true,
+          });
+
+          await readFile(benchDir.uri + '/otherfile.txt');
+
+          await rename(benchDir.uri + '/otherfile.txt', 'anotherfile.txt');
+
+          await copyFile(
+            benchDir.uri + '/anotherfile.txt',
+            benchDir.uri + '/copiedfile.txt',
+          );
+
+          await moveFile(
+            benchDir.uri + '/anotherfile.txt',
+            benchDir.uri + '/movedfile.txt',
+          );
+
+          await unlink(benchDir.uri);
+          console.timeLog('benchmark', 'iteration ' + i);
+        }
+        console.timeEnd('benchmark');
+      }
+    } catch (e: any) {
+      console.error('Error in benchmark: ');
+      console.timeEnd('benchmark');
+      if (e) {
+        if (e.message) {
+          ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
+        } else {
+          ToastAndroid.show('Error: ' + JSON.stringify(e), ToastAndroid.LONG);
+        }
+      }
+    }
+  };
+
   const onCleaupPress = async () => {
     try {
       // cleanup
@@ -357,6 +408,9 @@ export default function App() {
       </View>
       <View style={styles.buttonWrapper}>
         <Button onPress={onCustomAccessTestPress} title="Custom Access" />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onRunBenchmarkPress} title="benchmark" />
       </View>
     </View>
   );
