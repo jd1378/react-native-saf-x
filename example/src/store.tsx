@@ -24,7 +24,7 @@ export function useStore<T>(
   useEffect(() => {
     const getStorageItem = async () => {
       const data = (await AsyncStorage.getItem(key)) || '';
-      setState(JSON.parse(data));
+      setState(data ? JSON.parse(data) : defaultValue);
     };
     getStorageItem();
   });
