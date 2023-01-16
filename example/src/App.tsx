@@ -271,12 +271,15 @@ export default function App() {
 
   const onListFilesPress = async () => {
     if (selectedDirectory) {
+      console.time('listFiles');
       await listFiles(selectedDirectory)
-        .then(files =>
-          ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG),
-        )
+        .then(files => {
+          console.timeEnd('listFiles');
+          ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG);
+        })
         .catch(e => {
           console.log('Failed to list files:', JSON.stringify(e));
+          console.timeEnd('listFiles');
           if (e.message) {
             ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
           } else {
