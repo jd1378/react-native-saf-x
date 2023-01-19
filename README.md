@@ -8,6 +8,8 @@ A module to help simplify usage of scoped storages on android.
 
 intended to use when targeting Android API level 30+
 
+Minimum supported API level is 24
+
 ## Installation
 
 ```sh
