@@ -133,6 +133,11 @@ public class EfficientDocumentHelper {
       uri = baseUri;
 
       int pathSegmentsToTraverseLength = includeLastSegment ? strings.length : strings.length - 1;
+      if (pathSegmentsToTraverseLength == 0) {
+        if (getStat(uri) == null) {
+          throw new FileNotFoundException("file does not exist at: " + unknownUriStr);
+        }
+      }
       for (int i = 0; i < pathSegmentsToTraverseLength; i++) {
         if (!strings[i].equals("")) {
           DocumentStat childStat = findFile(uri, strings[i]);
