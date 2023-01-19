@@ -63,40 +63,45 @@ For more examples look at example folder in the source.
 
 ### Type aliases
 
-- [CreateDocumentOptions](#createdocumentoptions)
-- [DocumentFileDetail](#documentfiledetail)
-- [Encoding](#encoding)
-- [FileOperationOptions](#fileoperationoptions)
+- [CreateDocumentOptions](modules.md#createdocumentoptions)
+- [DocumentFileDetail](modules.md#documentfiledetail)
+- [Encoding](modules.md#encoding)
+- [FileOperationOptions](modules.md#fileoperationoptions)
+- [OpenDocumentOptions](modules.md#opendocumentoptions)
+
+### Variables
+
+- [default](modules.md#default)
 
 ### Functions
 
-- [copyFile](#copyfile)
-- [createDocument](#createdocument)
-- [createFile](#createfile)
-- [exists](#exists)
-- [getPersistedUriPermissions](#getpersisteduripermissions)
-- [hasPermission](#haspermission)
-- [listFiles](#listfiles)
-- [mkdir](#mkdir)
-- [moveFile](#movefile)
-- [openDocument](#opendocument)
-- [openDocumentTree](#opendocumenttree)
-- [readFile](#readfile)
-- [releasePersistableUriPermission](#releasepersistableuripermission)
-- [rename](#rename)
-- [stat](#stat)
-- [unlink](#unlink)
-- [writeFile](#writefile)
+- [copyFile](modules.md#copyfile)
+- [createDocument](modules.md#createdocument)
+- [createFile](modules.md#createfile)
+- [exists](modules.md#exists)
+- [getPersistedUriPermissions](modules.md#getpersisteduripermissions)
+- [hasPermission](modules.md#haspermission)
+- [listFiles](modules.md#listfiles)
+- [mkdir](modules.md#mkdir)
+- [moveFile](modules.md#movefile)
+- [openDocument](modules.md#opendocument)
+- [openDocumentTree](modules.md#opendocumenttree)
+- [readFile](modules.md#readfile)
+- [releasePersistableUriPermission](modules.md#releasepersistableuripermission)
+- [rename](modules.md#rename)
+- [stat](modules.md#stat)
+- [unlink](modules.md#unlink)
+- [writeFile](modules.md#writefile)
 
 ## Type aliases
 
 ### CreateDocumentOptions
 
-Ƭ **CreateDocumentOptions**: [`FileOperationOptions`](#fileoperationoptions) & { `initialName?`: `string`  }
+Ƭ **CreateDocumentOptions**: [`FileOperationOptions`](modules.md#fileoperationoptions) & { `initialName?`: `string`  }
 
 #### Defined in
 
-[index.tsx:87](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L87)
+[index.tsx:90](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L90)
 
 ___
 
@@ -109,15 +114,15 @@ ___
 | Name | Type |
 | :------ | :------ |
 | `lastModified` | `number` |
-| `mime?` | `string` |
+| `mime` | `string` |
 | `name` | `string` |
-| `size?` | `number` |
+| `size` | `number` |
 | `type` | ``"directory"`` \| ``"file"`` |
 | `uri` | `string` |
 
 #### Defined in
 
-[index.tsx:67](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L67)
+[index.tsx:70](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L70)
 
 ___
 
@@ -127,7 +132,7 @@ ___
 
 #### Defined in
 
-[index.tsx:29](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L29)
+[index.tsx:29](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L29)
 
 ___
 
@@ -140,18 +145,67 @@ ___
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `append?` | `boolean` | Append data to the file. If not set file content will be overwritten. |
-| `encoding?` | [`Encoding`](#encoding) | Defaults to `'utf8'` |
+| `encoding?` | [`Encoding`](modules.md#encoding) | Defaults to `'utf8'` |
 | `mimeType?` | `string` | mime type of the file being saved. Defaults to '\*\/\*' |
 
 #### Defined in
 
-[index.tsx:76](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L76)
+[index.tsx:79](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L79)
+
+___
+
+### OpenDocumentOptions
+
+Ƭ **OpenDocumentOptions**: `Object`
+
+#### Type declaration
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `multiple?` | `boolean` | should the file picker allow multiple documents ? |
+| `persist?` | `boolean` | should the permission of returned document(s) be persisted ? |
+
+#### Defined in
+
+[index.tsx:103](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L103)
+
+## Variables
+
+### default
+
+• **default**: `Object`
+
+#### Type declaration
+
+| Name | Type |
+| :------ | :------ |
+| `copyFile` | (`srcUri`: `string`, `destUri`: `string`, `options?`: `FileTransferOptions`) => `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `createDocument` | (`data`: `string`, `options?`: [`CreateDocumentOptions`](modules.md#createdocumentoptions)) => `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `createFile` | (`uriString`: `string`, `options?`: `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"mimeType"``\>) => `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `exists` | (`uriString`: `string`) => `Promise`<`boolean`\> |
+| `getPersistedUriPermissions` | () => `Promise`<`string`[]\> |
+| `hasPermission` | (`uriString`: `string`) => `Promise`<`boolean`\> |
+| `listFiles` | (`uriString`: `string`) => `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)[]\> |
+| `mkdir` | (`uriString`: `string`) => `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `moveFile` | (`srcUri`: `string`, `destUri`: `string`, `options?`: `FileTransferOptions`) => `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `openDocument` | (`options`: [`OpenDocumentOptions`](modules.md#opendocumentoptions)) => `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)[]\> |
+| `openDocumentTree` | (`persist`: `boolean`) => `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `readFile` | (`uriString`: `string`, `options?`: `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"encoding"``\>) => `Promise`<`string`\> |
+| `releasePersistableUriPermission` | (`uriString`: `string`) => `Promise`<`void`\> |
+| `rename` | (`uriString`: `string`, `newName`: `string`) => `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `stat` | (`uriString`: `string`) => `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\> |
+| `unlink` | (`uriString`: `string`) => `Promise`<`boolean`\> |
+| `writeFile` | (`uriString`: `string`, `data`: `string`, `options?`: [`FileOperationOptions`](modules.md#fileoperationoptions)) => `Promise`<`void`\> |
+
+#### Defined in
+
+[index.tsx:259](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L259)
 
 ## Functions
 
 ### copyFile
 
-▸ **copyFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+▸ **copyFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Copy file from source uri to destination uri.
 promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
@@ -167,17 +221,17 @@ Does not support moving directories.
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:221](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L221)
+[index.tsx:234](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L234)
 
 ___
 
 ### createDocument
 
-▸ **createDocument**(`data`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+▸ **createDocument**(`data`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Open the Document Picker to save a file.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
@@ -187,21 +241,21 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 | Name | Type |
 | :------ | :------ |
 | `data` | `string` |
-| `options?` | [`CreateDocumentOptions`](#createdocumentoptions) |
+| `options?` | [`CreateDocumentOptions`](modules.md#createdocumentoptions) |
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:112](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L112)
+[index.tsx:124](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L124)
 
 ___
 
 ### createFile
 
-▸ **createFile**(`uriString`, `options?`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+▸ **createFile**(`uriString`, `options?`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Creates an empty file at given uri.
 Rejects if a file or directory exist at given uri.
@@ -211,15 +265,15 @@ Rejects if a file or directory exist at given uri.
 | Name | Type |
 | :------ | :------ |
 | `uriString` | `string` |
-| `options?` | `Pick`<[`FileOperationOptions`](#fileoperationoptions), ``"mimeType"``\> |
+| `options?` | `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"mimeType"``\> |
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:157](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L157)
+[index.tsx:169](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L169)
 
 ___
 
@@ -241,7 +295,7 @@ Check if there's a document located at the given uri.
 
 #### Defined in
 
-[index.tsx:124](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L124)
+[index.tsx:136](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L136)
 
 ___
 
@@ -257,7 +311,7 @@ Returns a list of all the persisted uri permissions.
 
 #### Defined in
 
-[index.tsx:193](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L193)
+[index.tsx:206](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L206)
 
 ___
 
@@ -279,13 +333,13 @@ Check if you have permission to access the uri.
 
 #### Defined in
 
-[index.tsx:119](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L119)
+[index.tsx:131](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L131)
 
 ___
 
 ### listFiles
 
-▸ **listFiles**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)[]\>
+▸ **listFiles**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
 
 List all files and folders in a directory uri.
 
@@ -297,17 +351,17 @@ List all files and folders in a directory uri.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](#documentfiledetail)[]\>
+`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
 
 #### Defined in
 
-[index.tsx:203](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L203)
+[index.tsx:216](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L216)
 
 ___
 
 ### mkdir
 
-▸ **mkdir**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+▸ **mkdir**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Create a directory at given uri.
 Automatically creates folders in path if needed.
@@ -322,17 +376,17 @@ Rejects if it fails.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:179](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L179)
+[index.tsx:192](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L192)
 
 ___
 
 ### moveFile
 
-▸ **moveFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+▸ **moveFile**(`srcUri`, `destUri`, `options?`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Move file from source uri to destination uri.
 promise Rejects if destination already exists and `replaceIfDestinationExists` option is not set to true.
@@ -348,40 +402,42 @@ Does not support moving directories.
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:236](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L236)
+[index.tsx:249](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L249)
 
 ___
 
 ### openDocument
 
-▸ **openDocument**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+▸ **openDocument**(`options`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
 
 Open the Document Picker to select a file.
-Returns an object of type `DocumentFileDetail` or `null` if user did not select a file.
+DocumentFileDetail is always an array.
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `persist` | `boolean` |
+| `options` | [`OpenDocumentOptions`](modules.md#opendocumentoptions) |
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)[]\>
+
+`DocumentFileDetail[]` or `null` if user did not select a file.
 
 #### Defined in
 
-[index.tsx:104](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L104)
+[index.tsx:115](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L115)
 
 ___
 
 ### openDocumentTree
 
-▸ **openDocumentTree**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+▸ **openDocumentTree**(`persist`): `Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Open the Document Picker to select a folder. Read/Write Permission will be granted to the selected folder.
 Returns an object of type `DocumentFileDetail` or `null` if user did not select a folder.
@@ -394,11 +450,11 @@ Returns an object of type `DocumentFileDetail` or `null` if user did not select 
 
 #### Returns
 
-`Promise`<``null`` \| [`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<``null`` \| [`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:96](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L96)
+[index.tsx:99](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L99)
 
 ___
 
@@ -413,7 +469,7 @@ Read contents of the given uri. uri must point to a file.
 | Name | Type |
 | :------ | :------ |
 | `uriString` | `string` |
-| `options?` | `Pick`<[`FileOperationOptions`](#fileoperationoptions), ``"encoding"``\> |
+| `options?` | `Pick`<[`FileOperationOptions`](modules.md#fileoperationoptions), ``"encoding"``\> |
 
 #### Returns
 
@@ -421,7 +477,7 @@ Read contents of the given uri. uri must point to a file.
 
 #### Defined in
 
-[index.tsx:129](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L129)
+[index.tsx:141](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L141)
 
 ___
 
@@ -443,13 +499,13 @@ Remove a uri from persisted uri permissions list.
 
 #### Defined in
 
-[index.tsx:198](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L198)
+[index.tsx:211](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L211)
 
 ___
 
 ### rename
 
-▸ **rename**(`uriString`, `newName`): `Promise`<`boolean`\>
+▸ **rename**(`uriString`, `newName`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Renames the document at given uri.
 uri can be file or folder.
@@ -464,17 +520,17 @@ Resolves with `true` if successful and `false` otherwise.
 
 #### Returns
 
-`Promise`<`boolean`\>
+`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:188](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L188)
+[index.tsx:201](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L201)
 
 ___
 
 ### stat
 
-▸ **stat**(`uriString`): `Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+▸ **stat**(`uriString`): `Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 Get details for a file/directory at given uri.
 
@@ -486,11 +542,11 @@ Get details for a file/directory at given uri.
 
 #### Returns
 
-`Promise`<[`DocumentFileDetail`](#documentfiledetail)\>
+`Promise`<[`DocumentFileDetail`](modules.md#documentfiledetail)\>
 
 #### Defined in
 
-[index.tsx:208](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L208)
+[index.tsx:221](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L221)
 
 ___
 
@@ -513,13 +569,13 @@ Resolves with `true` if delete is successful, throws otherwise.
 
 #### Defined in
 
-[index.tsx:169](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L169)
+[index.tsx:182](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L182)
 
 ___
 
 ### writeFile
 
-▸ **writeFile**(`uriString`, `data`, `options?`): `Promise`<`string`\>
+▸ **writeFile**(`uriString`, `data`, `options?`): `Promise`<`void`\>
 
 Writes the given data to the file at given uri.
 Tries to create the file if does not already exist before writing to it.
@@ -531,15 +587,15 @@ Resolves with given uriString if successful.
 | :------ | :------ |
 | `uriString` | `string` |
 | `data` | `string` |
-| `options?` | [`FileOperationOptions`](#fileoperationoptions) |
+| `options?` | [`FileOperationOptions`](modules.md#fileoperationoptions) |
 
 #### Returns
 
-`Promise`<`string`\>
+`Promise`<`void`\>
 
 #### Defined in
 
-[index.tsx:143](https://github.com/jd1378/react-native-saf-x/blob/7e4a7d4/src/index.tsx#L143)
+[index.tsx:155](https://github.com/jd1378/react-native-saf-x/blob/de1efc0/src/index.tsx#L155)
 
 ## Caveats
 
@@ -551,7 +607,7 @@ ___
 
 ## Thanks to
 
-- [ammarahm-ed](https://github.com/ammarahm-ed) for his work on [react-native-scoped-storage](https://github.com/ammarahm-ed/react-native-scoped-storage) 
+- [ammarahm-ed](https://github.com/ammarahm-ed) for his work on [react-native-scoped-storage](https://github.com/ammarahm-ed/react-native-scoped-storage)
  which helped me jump start this module.
 
 ## Contributing
