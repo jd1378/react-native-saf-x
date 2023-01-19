@@ -9,23 +9,47 @@ import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class UriHelper {
-  public static String getLastSegment(String uriString) {
 
-    return Uri.parse(Uri.decode(uriString)).getLastPathSegment();
+  public static String getFileName(String uriStr) {
+    // it should be safe because user cannot select sd root or primary root
+    // and any other path would have at least one '/' to provide a file name in a folder
+    String fileName = Uri.parse(Uri.decode(uriStr)).getLastPathSegment();
+    if (fileName.indexOf(':') != -1) {
+      throw new RuntimeException(
+        "Invalid file name: Could not extract filename from uri string provided");
+    }
+
+    return fileName;
   }
 
   public static String normalize(String uriString) {
-    if (DocumentsContract.isTreeUri(Uri.parse(uriString))) {
+    return normalize(Uri.parse(uriString));
+  }
+
+  public static String normalize(Uri uri) {
+    if (DocumentsContract.isTreeUri(uri)) {
       // an abnormal uri example:
       // content://com.android.externalstorage.documents/tree/1707-3F0B%3Ajoplin/locks/2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
       // normalized:
       // content://com.android.externalstorage.documents/tree/1707-3F0B%3Ajoplin%2Flocks%2F2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
 
       // uri parts:
-      String[] parts = Uri.decode(uriString).split(":");
+      String[] parts = Uri.decode(uri.toString()).split(":");
       return parts[0] + ":" + parts[1] + Uri.encode(":" + parts[2]);
     }
-    return uriString;
+    return uri.toString();
+  }
+
+  public static String denormalize(Uri uri) {
+    if (DocumentsContract.isTreeUri(uri)) {
+      // an normalized uri example:
+      // content://com.android.externalstorage.documents/tree/1707-3F0B%3Ajoplin%2Flocks%2F2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
+      // denormalized:
+      // content://com.android.externalstorage.documents/tree/1707-3F0B/Ajoplin/locks/2_2_fa4f9801e9a545a58f1a6c5d3a7cfded.json
+
+      return Uri.decode(normalize(uri));
+    }
+    return uri.toString();
   }
 
   public static Uri getUnifiedUri(String unknownUriStr) {

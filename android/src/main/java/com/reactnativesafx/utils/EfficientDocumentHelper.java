@@ -329,7 +329,7 @@ public class EfficientDocumentHelper {
     if (newUri == null) {
       throw new IOException("Failed to rename file at: " + uri + " to " + newName);
     }
-    final String renameResult = UriHelper.getLastSegment(newUri.toString());
+    final String renameResult = UriHelper.getFileName(newUri.toString());
     if (!renameResult.equals(newName)) {
       throw new RenameFailedException(uri, newName, newUri, renameResult);
     }
@@ -364,7 +364,7 @@ public class EfficientDocumentHelper {
 
     // it should be safe because user cannot select sd root or primary root
     // and any other path would have at least one '/' to provide a file name in a folder
-    String fileName = UriHelper.getLastSegment(unknownStr);
+    String fileName = UriHelper.getFileName(unknownStr);
     if (fileName.indexOf(':') != -1) {
       throw new IOException(
         "Invalid file name: Could not extract filename from uri string provided");
@@ -394,7 +394,7 @@ public class EfficientDocumentHelper {
         "File creation failed without any specific error for '" + fileName + "'");
     }
 
-    String createdFileName = UriHelper.getLastSegment(createdFile.toString());
+    String createdFileName = UriHelper.getFileName(createdFile.toString());
 
     if (!createdFileName.equals(fileName)) {
       // some times setting mimetypes causes name changes, this is to prevent that.

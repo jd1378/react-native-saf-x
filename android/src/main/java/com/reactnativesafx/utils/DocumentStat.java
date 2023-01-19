@@ -72,7 +72,7 @@ public class DocumentStat {
 
   public WritableMap getWritableMap() {
     WritableMap fileMap = Arguments.createMap();
-    fileMap.putString("uri",  uri.toString());
+    fileMap.putString("uri", UriHelper.denormalize(uri));
     fileMap.putString("name",  displayName);
     if (isDirectory) {
       fileMap.putString("type",  "directory");
@@ -85,8 +85,8 @@ public class DocumentStat {
     return fileMap;
   }
 
-  public Uri getUri() {
-    return uri;
+  public String getUri() {
+    return UriHelper.denormalize(uri);
   }
   public String getDisplayName() {
     return displayName;
@@ -116,6 +116,7 @@ public class DocumentStat {
 
     return "application/octet-stream";
   }
+
 
   public Uri getInternalUri() {
     return internalUri;
