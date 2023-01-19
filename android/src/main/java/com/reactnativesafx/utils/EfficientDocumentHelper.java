@@ -85,10 +85,24 @@ public class EfficientDocumentHelper {
         }
       }
 
+      if (!targetFile.exists()) {
+        throw new FileNotFoundException("file does not exist at: " + unknownUriStr);
+      }
+
       uri = Uri.fromFile(targetFile);
       return uri;
     } else if (!DocumentsContract.isTreeUri(uri)) {
       // It's a document picked by user, nothing much we can do. operations limited.
+      DocumentStat stat = null;
+
+      try {
+        stat = getStat(uri);
+      } catch (Exception ignored) {}
+
+      if (stat == null) {
+        throw new FileNotFoundException("file does not exist at: " + unknownUriStr);
+      }
+
       return uri;
     } else {
       // It's a document tree based uri, can have library user's appended path, or not
@@ -329,14 +343,16 @@ public class EfficientDocumentHelper {
       throw new IOException("a file or directory already exist at: " + uri);
     }
 
-    if (unknownStr.startsWith(ContentResolver.SCHEME_FILE)) {
-      Uri fileUri = Uri.parse(unknownStr);
-      File file = new File(fileUri.getPath());
+    uri = UriHelper.getUnifiedUri(unknownStr);
+
+    if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
+      File file = new File(uri.getPath());
+      file.getParentFile().mkdirs();
       boolean created = file.createNewFile();
       if (!created) {
         throw new IOException("could not create file at: " + unknownStr);
       }
-      return fileUri;
+      return uri;
     }
 
     Uri parentDirOfFile = getDocumentUri(unknownStr, true, false);
