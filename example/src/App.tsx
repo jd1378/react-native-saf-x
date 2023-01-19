@@ -71,7 +71,9 @@ export default function App() {
       const doc = await openDocument({persist: true});
       if (doc && doc.length) {
         console.log(doc[0].uri);
+        console.time('stat');
         const fileData = await stat(doc[0].uri);
+        console.timeEnd('stat');
         ToastAndroid.show(
           'Stat: ' + JSON.stringify(fileData),
           ToastAndroid.SHORT,
@@ -80,6 +82,7 @@ export default function App() {
         throw new Error('User did not select a file');
       }
     } catch (e: any) {
+      console.error(e);
       if (e) {
         if (e.message) {
           ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
@@ -112,13 +115,15 @@ export default function App() {
   const onRunTestPress = async () => {
     try {
       if (selectedDirectory) {
+        console.time('mkdir');
         const newDir = await mkdir(selectedDirectory + '/foo/bar');
+        console.timeEnd('mkdir');
         console.log(newDir.uri);
         ToastAndroid.show(
           '/foo/bar made under selected folder',
           ToastAndroid.SHORT,
         );
-        await createFile(newDir.uri + '/subfolder/somefile.txt');
+        await createFile(newDir.uri + '/subfolder/somefile2.txt');
         ToastAndroid.show(
           'created /subfolder/somefile.txt in that folder',
           ToastAndroid.SHORT,
@@ -135,7 +140,6 @@ export default function App() {
           'appended ", maybe no" to otherfile.txt in base folder',
           ToastAndroid.SHORT,
         );
-
         const otherfileContent = await readFile(
           selectedDirectory + '/otherfile.txt',
         );
@@ -143,13 +147,11 @@ export default function App() {
           'otherfile.txt content: ' + otherfileContent,
           ToastAndroid.SHORT,
         );
-
         await rename(selectedDirectory + '/otherfile.txt', 'anotherfile.txt');
         ToastAndroid.show(
           'otherfile.txt renamed to anotherfile.txt',
           ToastAndroid.SHORT,
         );
-
         await copyFile(
           selectedDirectory + '/anotherfile.txt',
           selectedDirectory + '/copiedfile.txt',
@@ -158,7 +160,6 @@ export default function App() {
           'anotherfile.txt copied to copiedfile.txt',
           ToastAndroid.SHORT,
         );
-
         await moveFile(
           selectedDirectory + '/anotherfile.txt',
           selectedDirectory + '/foo/bar/movedfile.txt',
@@ -167,11 +168,10 @@ export default function App() {
           'anotherfile.txt moved to foo/bar/movedfile.txt',
           ToastAndroid.SHORT,
         );
-      } else {
-        ToastAndroid.show('failed to create dir', ToastAndroid.SHORT);
       }
     } catch (e: any) {
       if (e) {
+        console.error(e);
         if (e.message) {
           ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
         } else {
@@ -184,13 +184,13 @@ export default function App() {
   const onRunBenchmarkPress = async () => {
     try {
       if (selectedDirectory) {
-        // pre cleanup
-        const dir = await mkdir(selectedDirectory + '/benchmark');
-        await unlink(dir.uri);
+        await unlink(selectedDirectory + '/benchmark');
+        console.log('unlinked benchmark folder');
 
         console.time('benchmark');
         for (let i = 0; i < 100; i++) {
           const benchDir = await mkdir(selectedDirectory + '/benchmark');
+          console.log('BENCHDIR URI: ', benchDir.uri);
 
           await createFile(benchDir.uri + '/subfolder/somefile.txt');
 
@@ -220,8 +220,8 @@ export default function App() {
         console.timeEnd('benchmark');
       }
     } catch (e: any) {
-      console.error('Error in benchmark: ');
       console.timeEnd('benchmark');
+      console.error('Error in benchmark: ', e);
       if (e) {
         if (e.message) {
           ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
@@ -238,13 +238,17 @@ export default function App() {
       if (selectedDirectory) {
         const files = await listFiles(selectedDirectory);
         for (const f of files) {
+          console.log('unlinking: ', f.uri);
+          console.time('unlink');
           await unlink(f.uri);
+          console.timeEnd('unlink');
         }
         ToastAndroid.show('Cleanup Successful', ToastAndroid.SHORT);
       } else {
         ToastAndroid.show('No directory is selected', ToastAndroid.SHORT);
       }
     } catch (e: any) {
+      console.error(e);
       if (e) {
         if (e.message) {
           ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
@@ -256,16 +260,16 @@ export default function App() {
   };
 
   const onShowPermissionPress = async () => {
-    ToastAndroid.show(
-      'Perms: ' + (await getPersistedUriPermissions()).join('\n'),
-      ToastAndroid.SHORT,
-    );
+    const permissions = await getPersistedUriPermissions();
+    console.log(permissions);
+    ToastAndroid.show('Perms: ' + permissions.join('\n'), ToastAndroid.SHORT);
   };
 
   const onReleasePermissionsPress = async () => {
     await getPersistedUriPermissions().then(perms =>
       Promise.all(perms.map(p => releasePersistableUriPermission(p))),
     );
+    console.log('All Permissions Revoked');
     ToastAndroid.show('All Permissions Revoked', ToastAndroid.SHORT);
   };
 
@@ -275,11 +279,12 @@ export default function App() {
       await listFiles(selectedDirectory)
         .then(files => {
           console.timeEnd('listFiles');
+          console.log(files);
           ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG);
         })
         .catch(e => {
-          console.log('Failed to list files:', JSON.stringify(e));
           console.timeEnd('listFiles');
+          console.log('Failed to list files:', JSON.stringify(e));
           if (e.message) {
             ToastAndroid.show('Error: ' + e.message, ToastAndroid.LONG);
           } else {
@@ -290,19 +295,21 @@ export default function App() {
   };
 
   const onTestInternalPath = async () => {
+    console.log(
+      'Deleting internal file result: ',
+      await unlink(
+        '/data/user/0/com.example.reactnativesafx/files/test/fud/bar.baz',
+      ),
+    );
+
     await createFile(
       '/data/user/0/com.example.reactnativesafx/files/test/fud/bar.baz',
     )
       .then(files => {
-        console.log('file created:', JSON.stringify(files));
-        ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG);
-        return listFiles('/data/user/0/com.example.reactnativesafx/files/');
+        console.log('file created:', files);
       })
       .catch(error => {
-        console.log('Failed to create file:', JSON.stringify(error));
-      })
-      .then(listedFiles => {
-        console.log('files:', JSON.stringify(listedFiles));
+        console.log('Failed to create file:', error);
       })
       .finally(() =>
         unlink('/data/user/0/com.example.reactnativesafx/files/test')
@@ -343,7 +350,7 @@ export default function App() {
   const onCustomAccessTestPress = async () => {
     try {
       await createFile(
-        'content://com.android.externalstorage.documents/tree/11F3-120D:nonexistent',
+        'content://com.android.externalstorage.documents/tree/primary%3Afoobarium/goobarium',
       );
       ToastAndroid.show(
         'Successfully created a file somewhere .',
