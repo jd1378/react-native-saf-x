@@ -264,7 +264,7 @@ public class EfficientDocumentHelper {
   @Nullable
   private WritableArray queryListFiles(@NonNull Uri uri) {
     if (uri.getScheme().equals(ContentResolver.SCHEME_FILE)) {
-      File parentFile = new File(uri.getPath());
+      File parentFile = new File(uri.getPath()).getParentFile();
       if (!parentFile.canRead()) {
         throw new SecurityException("Permission Denial: Cannot read directory at " + uri.getPath());
       }
@@ -278,6 +278,8 @@ public class EfficientDocumentHelper {
     final ContentResolver resolver = context.getContentResolver();
     final Uri children = getChildrenDocumentFromTreeUri(uri);
 
+    WritableArray stats = Arguments.createArray();
+
     try (Cursor c =
            resolver.query(
              children,
@@ -286,15 +288,13 @@ public class EfficientDocumentHelper {
              null,
              null)) {
       if (c != null && c.getCount() > 0) {
-        WritableArray stats = Arguments.createArray();
         while (c.moveToNext()) {
           stats.pushMap(new DocumentStat(c, uri).getWritableMap());
         }
         return stats;
       }
     }
-
-    return null;
+    return stats;
   }
 
   private static void deleteRecursive(final File fileOrDirectory) throws IOException {
