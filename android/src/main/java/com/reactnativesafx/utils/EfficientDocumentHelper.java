@@ -101,7 +101,8 @@ public class EfficientDocumentHelper {
 
       try {
         stat = getStat(uri);
-      } catch (Exception ignored) {}
+      } catch (Exception ignored) {
+      }
 
       if (stat == null) {
         throw new FileNotFoundExceptionFast("file does not exist at: " + unknownUriStr);
