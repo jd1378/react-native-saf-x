@@ -71,8 +71,12 @@ public class DocumentStat {
   }
 
   public WritableMap getWritableMap() {
+    return getWritableMap(true);
+  }
+
+  public WritableMap getWritableMap(boolean denormalize) {
     WritableMap fileMap = Arguments.createMap();
-    fileMap.putString("uri", UriHelper.denormalize(uri));
+    fileMap.putString("uri", this.getUri(denormalize));
     fileMap.putString("name",  displayName);
     if (isDirectory) {
       fileMap.putString("type",  "directory");
@@ -87,6 +91,14 @@ public class DocumentStat {
 
   public String getUri() {
     return UriHelper.denormalize(uri);
+  }
+
+  public String getUri(boolean denormalize) {
+    if (denormalize) {
+      return getUri();
+    } else {
+      return this.uri.toString();
+    }
   }
   public String getDisplayName() {
     return displayName;

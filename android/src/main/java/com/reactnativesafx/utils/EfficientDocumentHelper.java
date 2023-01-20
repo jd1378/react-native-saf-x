@@ -441,12 +441,16 @@ public class EfficientDocumentHelper {
   }
 
   public void stat(final String unknownStr, final Promise promise) {
+    stat(unknownStr, promise, true);
+  }
+
+  public void stat(final String unknownStr, final Promise promise, boolean denormalize) {
     Async.execute(new Async.Task<Object>() {
       @Override
       public Object doAsync() {
         try {
           Uri uri = getDocumentUri(unknownStr, false, true);
-          return getStat(uri).getWritableMap();
+          return getStat(uri).getWritableMap(denormalize);
         } catch (Exception e) {
           return e;
         }
@@ -815,7 +819,7 @@ public class EfficientDocumentHelper {
                   context.getContentResolver().takePersistableUriPermission(uri, takeFlags);
                 }
                 // stat is async
-                stat(uri.toString(), promise);
+                stat(uri.toString(), promise, false);
               } else {
                 promise.resolve(null);
               }
