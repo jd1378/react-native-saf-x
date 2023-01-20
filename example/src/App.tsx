@@ -279,7 +279,7 @@ export default function App() {
       await listFiles(selectedDirectory)
         .then(files => {
           console.timeEnd('listFiles');
-          console.log(files);
+          console.log(files?.map(f => f.name));
           ToastAndroid.show(JSON.stringify(files), ToastAndroid.LONG);
         })
         .catch(e => {
